@@ -1,19 +1,16 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.neural_network import MLPRegressor
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 
 # Load the dataset
 data = pd.read_csv('matchmaking_data.csv')
 
 # Label encode categorical variables
 categorical_columns = ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']
-
-# Initialize a dictionary to store the encoders for each categorical variable
 encoders = {col: LabelEncoder() for col in categorical_columns}
 
-# Apply label encoding to the dataset and store encoders
 for col in categorical_columns:
     data[col] = encoders[col].fit_transform(data[col])
 
@@ -29,25 +26,47 @@ data['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = data['MATCHMAKING_ATTEMPT_START_TIM
 X = data.drop(columns=['QUEUE_DURATION_IN_SECS', 'MATCH_ID', 'PLATFORM'])
 y = data['QUEUE_DURATION_IN_SECS']
 
+# Scaling features
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
 # Split the dataset
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
+
+# Define the parameter grid for MLPRegressor
+param_grid = {
+    'activation': ['logistic', 'tanh', 'relu'],
+    'hidden_layer_sizes': [(30, 50), (5, 5, 5)],
+    'solver': ['adam', 'sgd']
+}
+
+# Create GridSearchCV object for MLPRegressor
+grid_search = GridSearchCV(estimator=MLPRegressor(max_iter=1000), param_grid=param_grid)
 
 # Train the model
-model = LinearRegression()
-model.fit(X_train, y_train)
+grid_search.fit(X_train, y_train)
 
-# Make predictions and calculate metrics
-y_pred = model.predict(X_test)
-mae = mean_absolute_error(y_test, y_pred)
+# Save the best parameters to a text file
+with open('best_params.txt', 'w') as file:
+    file.write(str(grid_search.best_params_))
+
+# Save the string representation of the best estimator to a text file
+with open('best_estimator.txt', 'w') as file:
+    file.write(str(grid_search.best_estimator_))
+
+# Make predictions with the best model
+y_pred = grid_search.predict(X_test)
+
+# Calculate and display evaluation metrics
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print(f'Mean Absolute Error: {mae}')
-print(f'Mean Squared Error: {mse}')
-print(f'R-squared: {r2}')
+# Save the evaluation metrics to a text file
+with open('evaluation_metrics.txt', 'w') as file:
+    file.write(f'Mean Squared Error: {mse}\n')
+    file.write(f'R-squared: {r2}\n')
 
-# Process new data point after model evaluation
-# Example prediction for a new data point (make sure to label encode this point)
+# Predicting for a new data point (example)
 new_data_point = pd.DataFrame({
     'PLAYER_ROLE': ['Survivor'], 
     'PARTY_SIZE': [4], 
@@ -59,18 +78,17 @@ new_data_point = pd.DataFrame({
     'MATCHMAKING_DAY_OF_WEEK': ['Mon']
 })
 
-# Apply label encoding to the new data point using the stored encoders
+# Apply label encoding and scaling to the new data point
 for col in categorical_columns:
     if col in new_data_point.columns:
         new_data_point[col] = encoders[col].transform(new_data_point[col])
 
-# Apply the time conversion function to new data point
 new_data_point['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = new_data_point['MATCHMAKING_ATTEMPT_START_TIME_UTC'].apply(time_to_seconds)
+new_data_point_scaled = scaler.transform(new_data_point[X.columns])
 
-# Ensure new_data_point has the same columns, in the same order as X used for training
-new_data_point_for_prediction = new_data_point[X.columns]
+# Predict queue wait time for the new data point
+predicted_wait_time = grid_search.predict(new_data_point_scaled)
 
-# Make predictions for the new data point
-predicted_wait_time = model.predict(new_data_point_for_prediction)
-
-print(f'Predicted Queue Wait Time: {predicted_wait_time[0]} seconds')
+# Save the predicted queue wait time for the new data point
+with open('predicted_wait_time.txt', 'w') as file:
+    file.write(f'Predicted Queue Wait Time: {predicted_wait_time[0]} seconds')
