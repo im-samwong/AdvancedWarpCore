@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from joblib import dump
 
 # Load the dataset
-data = pd.read_csv('matchmaking_data.csv')
+data = pd.read_csv('matchmaking_data_more_killers.csv')
 
 # Label encode categorical variables
 categorical_columns = ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']
@@ -48,14 +48,14 @@ grid_search = GridSearchCV(estimator=MLPRegressor(max_iter=1000), param_grid=par
 grid_search.fit(X_train, y_train)
 
 # Save the best model
-dump(grid_search.best_estimator_, 'mlp_regressor_model.joblib')
+dump(grid_search.best_estimator_, 'mlp_regressor_model_more_killers.joblib')
 
 # Save the scaler
-dump(scaler, 'scaler.joblib')
+dump(scaler, 'scaler_more_killers.joblib')
 
 # Save the label encoders
 for col in categorical_columns:
-    dump(encoders[col], f'{col}_encoder.joblib')
+    dump(encoders[col], f'{col}_encoder_more_killers.joblib')
 
 # Make predictions with the best model
 y_pred = grid_search.predict(X_test)
