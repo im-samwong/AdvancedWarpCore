@@ -15,7 +15,6 @@ function App() {
       <div className="App-body center-style ">
         <BackgroundVid />
         <ClassSwitcher />
-        {/* <SliderComponent /> */}
         <CharacterInput />
         <PlayButton className="bottom-center" />
       </div>
