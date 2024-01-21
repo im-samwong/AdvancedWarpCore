@@ -21,6 +21,11 @@ export const convertModelType = {
   'Adapted': '2'
 }
 
+export const convertPlayer = {
+  true: 'Survivor',
+  false: 'Killer'
+}
+
 const useStore = create((set) => ({
   // State variables
   time: "",
