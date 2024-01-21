@@ -1,13 +1,25 @@
+import os
 import pandas as pd
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from joblib import dump
-import sys
+
+def get_unique_folder(base_folder_name):
+    """
+    Append a number to the folder name if it already exists.
+    Increment the number until a unique folder name is found.
+    """
+    counter = 1
+    folder_name = base_folder_name
+    while os.path.exists(folder_name):
+        folder_name = f"{base_folder_name}_{counter}"
+        counter += 1
+    return folder_name
 
 # Load the dataset
-data = pd.read_csv('matchmaking_data.csv')
+data = pd.read_csv('matchmaking_data_more_killers.csv')
 
 # Label encode categorical variables
 categorical_columns = ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']
@@ -31,11 +43,13 @@ y = data['QUEUE_DURATION_IN_SECS']
 # After preparing X
 feature_names = X.columns.tolist()
 
-# Save the feature names for later use
-with open('feature_names.txt', 'w') as file:
-    file.write('\n'.join(feature_names))
+# Create a unique folder for the current run
+unique_folder = get_unique_folder('model_output')
+os.makedirs(unique_folder)
 
-sys.exit()
+# Save the feature names for later use
+with open(os.path.join(unique_folder, 'feature_names.txt'), 'w') as file:
+    file.write('\n'.join(feature_names))
 
 # Scaling features
 scaler = StandardScaler()
@@ -47,7 +61,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, 
 # Define the parameter grid for MLPRegressor
 param_grid = {
     'activation': ['logistic', 'tanh', 'relu'],
-    'hidden_layer_sizes': [(30, 50), (5, 5, 5)],
+    'hidden_layer_sizes': [(30, 50), (5, 5, 5), (100, 100)],
     'solver': ['adam', 'sgd']
 }
 
@@ -57,15 +71,18 @@ grid_search = GridSearchCV(estimator=MLPRegressor(max_iter=1000), param_grid=par
 # Train the model
 grid_search.fit(X_train, y_train)
 
-# Save the best model
-dump(grid_search.best_estimator_, 'mlp_regressor_model.joblib')
+# Save the best model in the unique folder
+model_filename = os.path.join(unique_folder, 'mlp_regressor_model.joblib')
+dump(grid_search.best_estimator_, model_filename)
 
-# Save the scaler
-dump(scaler, 'scaler.joblib')
+# Save the scaler in the unique folder
+scaler_filename = os.path.join(unique_folder, 'scaler.joblib')
+dump(scaler, scaler_filename)
 
-# Save the label encoders
+# Save the label encoders in the unique folder
 for col in categorical_columns:
-    dump(encoders[col], f'{col}_encoder.joblib')
+    encoder_filename = os.path.join(unique_folder, f'{col}_encoder.joblib')
+    dump(encoders[col], encoder_filename)
 
 # Make predictions with the best model
 y_pred = grid_search.predict(X_test)

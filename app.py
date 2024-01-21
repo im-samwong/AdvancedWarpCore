@@ -8,10 +8,13 @@ def time_to_seconds(time_str):
     hours, minutes, seconds = map(int, time_str.split(':'))
     return hours * 3600 + minutes * 60 + seconds
 
-# Load the model and preprocessors
-model = load('mlp_regressor_model.joblib')
-scaler = load('scaler.joblib')
-encoders = {col: load(f'{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
+# Specify the folder where your model and preprocessors are stored
+model_folder = 'model_output'
+
+# Load the model and preprocessors from the specified folder
+model = load(f'{model_folder}/mlp_regressor_model.joblib')
+scaler = load(f'{model_folder}/scaler.joblib')
+encoders = {col: load(f'{model_folder}/{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
 
 app = Flask(__name__)
 CORS(app)

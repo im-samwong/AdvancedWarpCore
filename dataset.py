@@ -15,20 +15,28 @@ def generate_matchmaking_data(num_matches):
 
         # Randomly assign server
         server = random.choice(['us-west-2', 'eu-central-1', 'us-east-1'])
+      
 
         # Set MMR for the match
-        mmr_group = random.randint(1, 10)
+        mmr_group = random.randint(1, 20)
 
         # Determine if the matchmaking attempt is during non-peak hours
-        is_non_peak_hours = day_of_week in ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'] and 9 <= start_time.hour <= 17
+        is_non_peak_hours = day_of_week in ['Mon', 'Tue', 'Wed', 'Thu', 'Sun'] or ((3 <= start_time.hour <= 12) and day_of_week in ['Fri', 'Sat'] )
 
         # Calculate queue duration based on MMR and non-peak hours
-        if mmr_group in [1, 10]:
-            queue_duration = random.randint(25, 60)  # High and low MMR
-            if is_non_peak_hours:
-                queue_duration += random.randint(5, 15)  # Additional wait time during non-peak hours
+        if mmr_group in [1, 20]:
+            queue_duration = random.randint(100, 200)  # High and low MMR
+        if mmr_group in [2, 3, 19, 18]:
+            queue_duration = random.randint(70, 140)  # High and low MMR
         else:
-            queue_duration = random.randint(5, 25)
+            queue_duration = random.randint(10, 45)
+        if is_non_peak_hours:
+            queue_duration += random.randint(20, 45)  # Additional wait time during non-peak hours
+
+        if server == "us-east-1":
+            queue_duration -= 10
+        if server == 'us-west-1':
+            queue_duration += 5
 
         # Generate platforms for parties in this match
         party_platforms = {1: random.choice(['steam', 'egs', 'ps5', 'xsx'])}
@@ -43,11 +51,20 @@ def generate_matchmaking_data(num_matches):
             # Party size - assuming 1 for killer and random for survivors
             party_size = 1 if role == 'Killer' else random.randint(1, 4)
 
+            if role == "Killer":
+                queue_duration += random.randint(30, 40) 
+         
+           
+            
+
             # Assign platform based on party size
             platform = party_platforms[party_size]
 
-            if party_size >= 1:
-                queue_duration += random.randint(5, 15)  # Additional wait time for larger parties
+            if party_size >= 1 and party_size < 4:
+                queue_duration += random.randint(10, 20)  # Additional wait time for larger parties
+            
+            if party_size == 4:
+                queue_duration -= random.randint(15, 25)  # Reduce wait time for complete parties
 
             # Matchmaking outcome
             outcome = 'success' 
@@ -63,4 +80,4 @@ sample_data = generate_matchmaking_data(10000)  # Generate data for 100 matches
 print(sample_data.head())
 
 # To save the dataset to a CSV file
-sample_data.to_csv('matchmaking_data.csv', index=False)
+sample_data.to_csv('matchmaking_data_more_killers.csv', index=False)
