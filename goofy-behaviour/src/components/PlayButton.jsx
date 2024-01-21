@@ -1,6 +1,7 @@
 // TestComponent.js
 import { useState } from "react";
 import "./PlayButton.css";
+import useStore from "../store";
 
 const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
@@ -12,6 +13,16 @@ const PlayButton = () => {
   const handleMouseLeave = () => {
     setHovered(false);
   };
+
+  const {
+    setTime,
+    setDay,
+    setRankName,
+    setRankNum,
+    setModelType,
+    setServer,
+    partySize,
+  } = useStore();
 
   return (
     <div>
