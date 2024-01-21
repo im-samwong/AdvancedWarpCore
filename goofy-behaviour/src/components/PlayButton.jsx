@@ -1,9 +1,8 @@
-
 // TestComponent.js
-import React, { useState } from 'react';
-import './TestComponent.css';
+import { useState } from "react";
+import "./PlayButton.css";
 
-const TestComponent = () => {
+const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -15,17 +14,16 @@ const TestComponent = () => {
   };
 
   return (
-    <div className='btn'>
-        <button
-        className={`color-transition-button ${isHovered ? 'hovered' : ''}`}
+    <div className="btn">
+      <button
+        className={`color-transition-button ${isHovered ? "hovered" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        >
-        Hover Me
-        </button>
+      >
+        <span>Hover Me</span>
+      </button>
     </div>
-
   );
 };
 
-export default TestComponent;
+export default PlayButton;
