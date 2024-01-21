@@ -1,0 +1,33 @@
+.class-switcher {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.class-switcher span {
+    margin: 0 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.arrow.rotated {
+    transform: rotate(180deg);
+}
+
+.active {
+    transition: font-size 0.3s ease;
+    font-weight: bold;
+    font-size: 1.625rem;
+    /* Example color for active state */
+}
+
+span:not(.active):not(.arrow) {
+    transition: font-size 0.3s ease;
+    font-weight: bold;
+    font-size: 1rem;
+    /* Example color for active state */
+}
