@@ -1,0 +1,46 @@
+.modelTypeSlider input[type=range] {
+    /* Override default appearance */
+    width: 100%;
+    /* Full-width */
+    height: 10px;
+    /* Specified height */
+    background: #ddd;
+    /* Grey background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.7;
+    /* Set transparency (adjust as needed) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+}
+
+.modelTypeSlider input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default appearance */
+    appearance: none;
+    width: 25px;
+    /* Width of the slider handle */
+    height: 25px;
+    /* Height of the slider handle */
+    background: #4CAF50;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+.modelTypeSlider input[type=range]::-moz-range-thumb {
+    width: 25px;
+    /* Width of the slider handle */
+    height: 25px;
+    /* Height of the slider handle */
+    background: #4CAF50;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+}
+
+.imageContainer {
+    width: 20rem;
+    height: auto;
+}

@@ -1,12 +1,16 @@
 .class-switcher {
     display: flex;
+    height: 3rem;
     align-items: center;
+    cursor: pointer;
     justify-content: center;
+    padding: 1rem;
+    border-radius: 13px;
+    background-color: rgb(0, 0, 0, 0.7);
 }
 
 .class-switcher span {
-    margin: 0 10px;
-    cursor: pointer;
+    margin: 0 5px;
     user-select: none;
 }
 
@@ -21,13 +25,12 @@
 .active {
     transition: font-size 0.3s ease;
     font-weight: bold;
-    font-size: 1.625rem;
+    font-size: 1.75rem;
     /* Example color for active state */
 }
 
 span:not(.active):not(.arrow) {
     transition: font-size 0.3s ease;
-    font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.9rem;
     /* Example color for active state */
 }

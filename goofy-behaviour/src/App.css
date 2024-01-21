@@ -38,7 +38,7 @@ body {
   margin-bottom: 2rem;
   max-width: 100%;
   height: 30rem;
-  padding: 0px 40px;
+  padding: 30px 10px 10px 10px;
 }
 
 .time-estimator {
@@ -137,6 +137,7 @@ body {
 }
 
 .inputCol{
+  width: 10rem;
   display: flex;
   flex-direction: column;
 }
