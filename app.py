@@ -29,7 +29,21 @@ models['model_output_3'], models['scaler_3'], models['encoders_3'] = load_model_
 def process_predict_request(model, scaler, encoders):
     try:
         data = request.json
+
+        # Define the specific order of the columns
+        columns_order = [
+            "MATCHMAKING_ATTEMPT_START_TIME_UTC",
+            "MATCHMAKING_DAY_OF_WEEK",
+            "PLAYER_ROLE",
+            "PARTY_SIZE",
+            "SERVER_NAME",
+            "MATCHMAKING_OUTCOME",
+            "MMR_GROUP_DECILE"
+        ]
+
+        # Create DataFrame and reorder columns to match the specified order
         data_df = pd.DataFrame(data, index=[0])
+        data_df = data_df[columns_order]
 
         for col in encoders:
             if col in data_df.columns:
@@ -60,7 +74,6 @@ def predict2():
 def predict3():
     return process_predict_request(models['model_output_3'], models['scaler_3'], models['encoders_3'])
 
-    
 @app.route('/add', methods=['POST'])
 def add_five():
     data = request.json
