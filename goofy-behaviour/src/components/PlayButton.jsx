@@ -2,9 +2,12 @@
 import { useState } from "react";
 import useStore from "../store";
 import "./PlayButton.css";
+import { convertModelType, convertRankName, convertRankNum } from "../store";
 
 const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
+  const [isQueingUp, setIsQueuingUp] = useState(false);
+  const [estimatedTime, setEstimatedTime] = useState(0)
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -14,13 +17,16 @@ const PlayButton = () => {
     setHovered(false);
   };
 
+  const handleStartQueue =  async () => {
+
+};
   const {
-    setTime,
-    setDay,
-    setRankName,
-    setRankNum,
-    setModelType,
-    setServer,
+    time,
+    day,
+    rankName,
+    rankNum,
+    modelType,
+    server,
     partySize,
   } = useStore();
 
@@ -31,8 +37,19 @@ const PlayButton = () => {
         className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        
       >
         <span>PLAY</span>
+      </button>
+      <button
+        className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
+        style={{display:"none"}}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        
+      >
+        <span>CANCEL QUEUE</span>
+        <span>{estimatedTime}</span>
       </button>
     </div>
   );
