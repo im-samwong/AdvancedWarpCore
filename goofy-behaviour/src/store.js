@@ -16,9 +16,9 @@ const convertRankName = {
 };
 
 const convertModelType = {
-  'More Killers': 1,
-  'More Survivors': 2,
-  'Adapted': 3
+  'More Killers': '',
+  'More Survivors': '1',
+  'Adapted': '2'
 }
 
 const useStore = create((set) => ({

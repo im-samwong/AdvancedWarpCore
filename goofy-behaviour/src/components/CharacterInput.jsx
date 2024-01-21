@@ -100,9 +100,9 @@ const CharacterInput = () => {
         <div className="input-group">
           <label htmlFor="partySize">MODEL TYPE:</label>
           <select id="partySize" name="modelType" onChange={handleInputChange} className="input-field">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+            <option>More Killers</option>
+            <option>More Survivors</option>
+            <option>Adapted</option>
           </select>
         </div>
         <div className="input-group">
