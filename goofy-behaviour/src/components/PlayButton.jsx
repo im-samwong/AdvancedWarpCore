@@ -6,6 +6,8 @@ import { convertRankName, convertRankNum, convertPlayer, convertModelType } from
 
 const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
+  const [isQueingUp, setIsQueuingUp] = useState(false);
+  const [estimatedTime, setEstimatedTime] = useState(0)
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -82,6 +84,16 @@ const PlayButton = () => {
         onClick={handlePlay}
       >
         <span>PLAY</span>
+      </button>
+      <button
+        className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
+        style={{display:"none"}}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        
+      >
+        <span>CANCEL QUEUE</span>
+        <span>{estimatedTime}</span>
       </button>
     </div>
   );
