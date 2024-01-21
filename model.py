@@ -19,7 +19,7 @@ def get_unique_folder(base_folder_name):
     return folder_name
 
 # Load the dataset
-data = pd.read_csv('matchmaking_data_more_killers.csv')
+data = pd.read_csv('matchmaking_data_default.csv')
 
 # Label encode categorical variables
 categorical_columns = ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']

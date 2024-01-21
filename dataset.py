@@ -80,4 +80,4 @@ sample_data = generate_matchmaking_data(10000)  # Generate data for 100 matches
 print(sample_data.head())
 
 # To save the dataset to a CSV file
-sample_data.to_csv('matchmaking_data_more_killers.csv', index=False)
+sample_data.to_csv('matchmaking_data_default.csv', index=False)
