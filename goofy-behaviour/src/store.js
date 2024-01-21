@@ -1,5 +1,26 @@
 import { create } from "zustand";
 
+const convertRankNum = {
+  'I': 3,
+  'II': 2,
+  'III': 1,
+  'IV': 0,
+};
+
+const convertRankName = {
+  'Ash': 1,
+  'Bronze': 5,
+  'Silver': 9,
+  'Gold': 13,
+  'Iridescent': 17
+};
+
+const convertModelType = {
+  'More Killers': 1,
+  'More Survivors': 2,
+  'Adapted': 3
+}
+
 const useStore = create((set) => ({
   // State variables
   time: "",
@@ -25,7 +46,7 @@ const useStore = create((set) => ({
     set((state) => ({ displayStain: !state.displayStain }));
     setTimeout(() => {
       set((state) => ({ displayStain: !state.displayStain }));
-    }, 200); // 500 milliseconds = 0.5 seconds
+    }, 200);
   },
   setDisplayStain: () => set((state) => ({ displayStain: !state.displayStain })),
 
