@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <BackgroundVid />
       <SliderComponent />
+      
       <div className='center-style'>
         <TimeEstimatorScreen />
       </div>
