@@ -31,7 +31,7 @@ const useStore = create((set) => ({
   time: "",
   day: "Mon",
   rankName: "Ash",
-  rankNum: "1",
+  rankNum: "I",
   modelType: "1",
   server: "us-west-2",
   partySize: "1",

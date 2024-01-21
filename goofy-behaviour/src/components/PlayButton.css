@@ -1,11 +1,14 @@
 .color-transition-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 20rem;
   height: 5rem;
   color: white;
   padding: 15px 50px;
   border: none;
   cursor: pointer;
-  border-radius: 0px;
+  border-radius: 3px;
   background-image: url('btnBackground.webp');
   /* Ensure this path is correct */
   background-size: cover;
@@ -42,4 +45,10 @@
 .color-transition-button:active {
   transform: scale(0.95);
   /* Slightly reduce the size when active/pressed */
+}
+
+.color-transition-button span{
+  font-size: 2rem;
+  position: relative;
+  z-index: 1;
 }
