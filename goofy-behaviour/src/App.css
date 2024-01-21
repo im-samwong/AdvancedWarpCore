@@ -79,6 +79,26 @@ body {
 }
 
 
+.bloodstain {
+  position: fixed;
+  width: 1800px;
+  /* adjust as needed */
+  height: 930px;
+  /* adjust as needed */
+  bottom: 0;
+  left: 0;
+  opacity: 0.3;
+  display: none;
+  overflow: hidden;
+}
+
+.bloodstain.display {
+  display: block;
+}
+
+
+
+
 @keyframes backgroundZoomInOut {
 
   0%,
