@@ -81,9 +81,9 @@ body {
 
 .bloodstain {
   position: fixed;
-  width: 1800px;
+  width: 100vw;
   /* adjust as needed */
-  height: 930px;
+  height: 100vh;
   /* adjust as needed */
   bottom: 0;
   left: 0;
