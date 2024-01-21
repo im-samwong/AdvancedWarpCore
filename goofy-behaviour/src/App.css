@@ -27,12 +27,18 @@ body {
   animation: backgroundZoomInOut 10s infinite alternate;
 }
 
-
 .center-style {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.centered-image {
+  margin-bottom: 2rem;
+  max-width: 100%;
+  height: 30rem;
+  padding: 0px 40px;
 }
 
 .time-estimator {
@@ -115,6 +121,7 @@ body {
 .read-the-docs {
   color: #888;
 }
+
 .video-container {
   position: absolute;
   top: 0;
@@ -123,4 +130,26 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -2;
+}
+
+.charInput{
+  display: flex;
+}
+
+.inputCol{
+  display: flex;
+  flex-direction: column;
+}
+
+.inputCol label{
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+
+}
+.inputCol select{
+  font-size: 18px;
+  padding: 5px;
+  margin: 0px 0px 30px;
+  font-weight: bold;
 }

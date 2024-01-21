@@ -8,10 +8,13 @@ def time_to_seconds(time_str):
     hours, minutes, seconds = map(int, time_str.split(':'))
     return hours * 3600 + minutes * 60 + seconds
 
-# Load the model and preprocessors
-model = load('mlp_regressor_model.joblib')
-scaler = load('scaler.joblib')
-encoders = {col: load(f'{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
+# Specify the folder where your model and preprocessors are stored
+model_folder = 'model_output'
+
+# Load the model and preprocessors from the specified folder
+model = load(f'{model_folder}/mlp_regressor_model.joblib')
+scaler = load(f'{model_folder}/scaler.joblib')
+encoders = {col: load(f'{model_folder}/{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
 
 app = Flask(__name__)
 CORS(app)
@@ -25,7 +28,6 @@ def predict():
         #     "PLAYER_ROLE": "Survivor",
         #     "PARTY_SIZE": 4,
         #     "SERVER_NAME": "us-west-2",
-        #     "PLATFORM": "ps5",
         #     "MMR_GROUP_DECILE": 8,
         #     "MATCHMAKING_OUTCOME": "success",
         #     "MATCHMAKING_ATTEMPT_START_TIME_UTC": "3:09:31",
@@ -40,19 +42,24 @@ def predict():
                 data_df[col] = encoders[col].transform(data_df[col])
 
         data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'].apply(time_to_seconds)
-        
+
+        print(data_df)
+
         # Ensure the input data matches the feature order expected by the model
-        X_scaled = scaler.transform(data_df[model.feature_names_in_])
+        X_scaled = scaler.transform(data_df)
 
         # Make predictions
         predictions = model.predict(X_scaled)
         return jsonify({'predictions': predictions.tolist()})
     except Exception as e:
         return jsonify({'error': str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+    
+@app.route('/add', methods=['POST'])
+def add_five():
+    data = request.json
+    number = data['number']
+    result = number + 5
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     app.run(debug=True)

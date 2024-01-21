@@ -1,20 +1,19 @@
-import SliderComponent from './components/SliderComponent';
-import PlayButton from './components/PlayButton';
-import TimeEstimatorScreen from './components/TimeEstimatorScreen';
-import BackgroundVid from './components/BackgroundVid';
-import './App.css'; // Import your CSS file (if it's separate)
+// import SliderComponent from "./components/SliderComponent";
+import PlayButton from "./components/PlayButton";
+import BackgroundVid from "./components/BackgroundVid";
+import CharacterInput from "./components/CharacterInput";
+import "./App.css";
+
 
 function App() {
   return (
     <div className="App">
-      <BackgroundVid />
-      <SliderComponent />
-      
-      <div className='center-style'>
-        <TimeEstimatorScreen />
+      <div className="App-body center-style">
+        <BackgroundVid />
+        {/* <SliderComponent /> */}
+        <CharacterInput/>
+        <PlayButton className="bottom-center" />
       </div>
-      <PlayButton />
-
     </div>
   );
 }
