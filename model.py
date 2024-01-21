@@ -4,6 +4,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from joblib import dump
+import sys
 
 # Load the dataset
 data = pd.read_csv('matchmaking_data.csv')
@@ -26,6 +27,15 @@ data['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = data['MATCHMAKING_ATTEMPT_START_TIM
 # Prepare features and target variable for training
 X = data.drop(columns=['QUEUE_DURATION_IN_SECS', 'MATCH_ID', 'PLATFORM'])
 y = data['QUEUE_DURATION_IN_SECS']
+
+# After preparing X
+feature_names = X.columns.tolist()
+
+# Save the feature names for later use
+with open('feature_names.txt', 'w') as file:
+    file.write('\n'.join(feature_names))
+
+sys.exit()
 
 # Scaling features
 scaler = StandardScaler()
