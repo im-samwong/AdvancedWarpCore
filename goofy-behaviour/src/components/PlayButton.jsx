@@ -14,22 +14,28 @@ const PlayButton = () => {
     setHovered(false);
   };
 
-  const {
-    setTime,
-    setDay,
-    setRankName,
-    setRankNum,
-    setModelType,
-    setServer,
-    partySize,
-  } = useStore();
+  const { isSurvivor, time, day, rankName, rankNum, modelType, server, partySize } = useStore();
+
+  const handlePlayClick = () => {
+    console.log("Here is the request data: ", {
+      isSurvivor,
+      time,
+      day,
+      rankName,
+      rankNum,
+      modelType,
+      server,
+      partySize,
+    });
+    };
 
   return (
     <div>
       <button
-        className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
+        className={`color-transition-button ${isHovered ? "hovered" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        onClick={handlePlayClick}
       >
         <span>PLAY</span>
       </button>

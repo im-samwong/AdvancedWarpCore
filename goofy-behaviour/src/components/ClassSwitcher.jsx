@@ -4,6 +4,8 @@ import useStore from "../store"; // Update the path to your store
 const ClassSwitcher = () => {
   const { isSurvivor, toggleClass } = useStore();
 
+  console.log("isSurvivor: ", isSurvivor);
+
   if (!isSurvivor) {
     const arrow = document.querySelector(".class-switcher .arrow");
     arrow.classList.toggle("rotated");
