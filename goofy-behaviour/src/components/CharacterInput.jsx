@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import useStore from "../store"; // Update the path as needed
 import survivorImage from "../assets/survivor1.png";
 import killerImage from "../assets/killer1.png";
@@ -14,13 +15,22 @@ const CharacterInput = () => {
     setPartySize,
   } = useStore();
 
+  const [partySizeValue, setPartySizeValue] = useState("1");
+
   const { isSurvivor } = useStore();
+
+  useEffect(() => {
+    if (!isSurvivor) {
+      setPartySizeValue("1");
+      setPartySize("1");
+    }
+  }, [isSurvivor, setPartySize]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
       case "time":
-        setTime(value+":00");
+        setTime(value + ":00");
         break;
       case "day":
         setDay(value);
@@ -38,6 +48,7 @@ const CharacterInput = () => {
         setServer(value);
         break;
       case "partySize":
+        setPartySizeValue(value);
         setPartySize(value);
         break;
       default:
@@ -60,7 +71,12 @@ const CharacterInput = () => {
         </div>
         <div className="input-group">
           <label htmlFor="day">DAY:</label>
-          <select id="day" name="day" onChange={handleInputChange} className="input-field">
+          <select
+            id="day"
+            name="day"
+            onChange={handleInputChange}
+            className="input-field"
+          >
             <option>Mon</option>
             <option>Tue</option>
             <option>Wed</option>
@@ -73,14 +89,24 @@ const CharacterInput = () => {
         <div className="input-group">
           <label htmlFor="rankName">RANK:</label>
           <div className="rankSelect">
-            <select id="rankName" name="rankName" onChange={handleInputChange} className="input-field">
+            <select
+              id="rankName"
+              name="rankName"
+              onChange={handleInputChange}
+              className="input-field"
+            >
               <option>Ash</option>
               <option>Bronze</option>
               <option>Silver</option>
               <option>Gold</option>
               <option>Iridescent</option>
             </select>
-            <select id="rankNum" name="rankNum" onChange={handleInputChange} className="input-field">
+            <select
+              id="rankNum"
+              name="rankNum"
+              onChange={handleInputChange}
+              className="input-field"
+            >
               <option>IV</option>
               <option>III</option>
               <option>II</option>
@@ -99,7 +125,12 @@ const CharacterInput = () => {
       <div className="inputCol">
         <div className="input-group">
           <label htmlFor="partySize">MODEL TYPE:</label>
-          <select id="partySize" name="modelType" onChange={handleInputChange} className="input-field">
+          <select
+            id="partySize"
+            name="modelType"
+            onChange={handleInputChange}
+            className="input-field"
+          >
             <option>More Killers</option>
             <option>More Survivors</option>
             <option>Adapted</option>
@@ -107,7 +138,12 @@ const CharacterInput = () => {
         </div>
         <div className="input-group">
           <label htmlFor="server">SERVER:</label>
-          <select id="server" name="server" onChange={handleInputChange} className="input-field">
+          <select
+            id="server"
+            name="server"
+            onChange={handleInputChange}
+            className="input-field"
+          >
             <option>us-east-1</option>
             <option>us-west-2</option>
             <option>eu-central-1</option>
@@ -115,11 +151,23 @@ const CharacterInput = () => {
         </div>
         <div className="input-group">
           <label htmlFor="partySize">PARTY SIZE:</label>
-          <select id="partySize" name="partySize" onChange={handleInputChange} className="input-field">
+
+          <select
+            disabled={!isSurvivor}
+            id="partySize"
+            name="partySize"
+            onChange={handleInputChange}
+            className="input-field"
+            value={partySizeValue}
+          >
             <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            {isSurvivor && (
+              <>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </>
+            )}
           </select>
         </div>
       </div>
