@@ -12,7 +12,7 @@ function App() {
   const { displayStain } = useStore();
   return (
     <div className="App">
-      <div className="App-body center-style ">
+      <div className="App-body center-style overflow-none">
         <BackgroundVid />
         <ClassSwitcher />
         <CharacterInput />
