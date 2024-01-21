@@ -2,7 +2,9 @@
 import PlayButton from "./components/PlayButton";
 import BackgroundVid from "./components/BackgroundVid";
 import myImage from "./assets/survivor1.png"; // Import the image
+import CharacterInput from "./components/CharacterInput";
 import "./App.css";
+
 
 function App() {
   return (
@@ -11,6 +13,7 @@ function App() {
         <BackgroundVid />
         <img src={myImage} alt="Centered" className="centered-image" />
         {/* <SliderComponent /> */}
+        <CharacterInput/>
         <PlayButton className="bottom-center" />
       </div>
     </div>
