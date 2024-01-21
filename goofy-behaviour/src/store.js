@@ -37,6 +37,7 @@ const useStore = create((set) => ({
   partySize: "1",
   isSurvivor: true,
   displayStain: false,
+  joiningGameState: false,
 
   // Functions to update state variables
   setTime: (newTime) => set(() => ({ time: newTime })),
@@ -46,6 +47,7 @@ const useStore = create((set) => ({
   setModelType: (newModelType) => set(() => ({ modelType: newModelType })),
   setServer: (newServer) => set(() => ({ server: newServer })),
   setPartySize: (newPartySize) => set(() => ({ partySize: newPartySize })),
+  setJoiningGameState: (newJoiningGameState) => set(() => ({ joiningGameState: newJoiningGameState })),
   toggleClass: () => {
     set((state) => ({ isSurvivor: !state.isSurvivor }));
     set((state) => ({ displayStain: !state.displayStain }));
@@ -54,7 +56,6 @@ const useStore = create((set) => ({
     }, 200);
   },
   setDisplayStain: () => set((state) => ({ displayStain: !state.displayStain })),
-
 }));
 
 export default useStore;
