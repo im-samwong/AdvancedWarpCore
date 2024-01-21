@@ -14,13 +14,13 @@ const PlayButton = () => {
   };
 
   return (
-    <div className="btn">
+    <div>
       <button
-        className={`color-transition-button ${isHovered ? "hovered" : ""}`}
+        className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <span>Hover Me</span>
+        <span>PLAY</span>
       </button>
     </div>
   );

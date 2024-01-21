@@ -1,20 +1,18 @@
-import SliderComponent from './components/SliderComponent';
-import PlayButton from './components/PlayButton';
-import TimeEstimatorScreen from './components/TimeEstimatorScreen';
-import BackgroundVid from './components/BackgroundVid';
-import './App.css'; // Import your CSS file (if it's separate)
+import SliderComponent from "./components/SliderComponent";
+import PlayButton from "./components/PlayButton";
+import BackgroundVid from "./components/BackgroundVid";
+import myImage from "./assets/survivor1.png"; // Import the image
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <BackgroundVid />
-      <SliderComponent />
-      
-      <div className='center-style'>
-        <TimeEstimatorScreen />
+      <div className="App-body center-style">
+        <BackgroundVid />
+        <img src={myImage} alt="Centered" className="centered-image" />
+        <SliderComponent />
+        <PlayButton className="bottom-center" />
       </div>
-      <PlayButton />
-
     </div>
   );
 }

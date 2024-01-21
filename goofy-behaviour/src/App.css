@@ -27,12 +27,16 @@ body {
   animation: backgroundZoomInOut 10s infinite alternate;
 }
 
-
 .center-style {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.centered-image {
+  max-width: 100%;
+  height: 30rem;
 }
 
 .time-estimator {
@@ -115,6 +119,7 @@ body {
 .read-the-docs {
   color: #888;
 }
+
 .video-container {
   position: absolute;
   top: 0;
