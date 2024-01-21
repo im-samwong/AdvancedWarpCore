@@ -7,14 +7,15 @@
     background-color: rgba(0, 0, 0, 0.7);
     /* Transparent black background */
     border: none;
-    /* Remove border */
     color: white;
-    /* Optional: change text color for better visibility */
-    /* Optional: for some inner spacing */
     -webkit-appearance: none;
     /* Optional: to remove default styling on some browsers */
     -moz-appearance: none;
     appearance: none;
+}
+
+#rankNum {
+    width: 100%;
 }
 
 .input-group input[type=time] {
