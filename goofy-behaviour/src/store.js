@@ -16,7 +16,7 @@ export const convertRankName = {
 };
 
 export const convertModelType = {
-  'More Killers': '',
+  'More Killers': '0',
   'More Survivors': '1',
   'Adapted': '2'
 }
@@ -32,12 +32,13 @@ const useStore = create((set) => ({
   day: "Mon",
   rankName: "Ash",
   rankNum: "I",
-  modelType: "1",
+  modelType: "More Killers",
   server: "us-west-2",
   partySize: "1",
   isSurvivor: true,
   displayStain: false,
   joiningGameState: false,
+  estimatedTime: 0,
 
   // Functions to update state variables
   setTime: (newTime) => set(() => ({ time: newTime })),
@@ -48,6 +49,7 @@ const useStore = create((set) => ({
   setServer: (newServer) => set(() => ({ server: newServer })),
   setPartySize: (newPartySize) => set(() => ({ partySize: newPartySize })),
   setJoiningGameState: (newJoiningGameState) => set(() => ({ joiningGameState: newJoiningGameState })),
+  setEstimatedTime: (newEstimatedTime) => set(() => ({ estimatedTime: newEstimatedTime })),
   toggleClass: () => {
     set((state) => ({ isSurvivor: !state.isSurvivor }));
     set((state) => ({ displayStain: !state.displayStain }));

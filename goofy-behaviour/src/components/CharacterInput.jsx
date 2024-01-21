@@ -81,10 +81,10 @@ const CharacterInput = () => {
               <option>Iridescent</option>
             </select>
             <select id="rankNum" name="rankNum" onChange={handleInputChange} className="input-field">
-              <option>I</option>
-              <option>II</option>
-              <option>III</option>
               <option>IV</option>
+              <option>III</option>
+              <option>II</option>
+              <option>I</option>
             </select>
           </div>
         </div>

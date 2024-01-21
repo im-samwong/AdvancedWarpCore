@@ -1,13 +1,18 @@
 // TestComponent.js
-import { useState } from 'react';
-import './PlayButton.css';
-import useStore from '../store';
-import { convertRankName, convertRankNum, convertPlayer, convertModelType } from '../store';
+import { useState } from "react";
+import "./PlayButton.css";
+import useStore from "../store";
+import {
+  convertRankName,
+  convertRankNum,
+  convertPlayer,
+  convertModelType,
+} from "../store";
 
 const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
-  const [isQueingUp, setIsQueuingUp] = useState(false);
-  const [estimatedTime, setEstimatedTime] = useState(0)
+  const { setJoiningGameState } = useStore();
+  const [estimatedTime, setEstimatedTime] = useState(0);
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -25,12 +30,13 @@ const PlayButton = () => {
     modelType,
     server,
     partySize,
-    isSurvivor
+    isSurvivor,
   } = useStore();
 
   const handlePlay = async () => {
-    const rank = convertRankName(rankName) + convertRankNum(rankNum);
-    const playerType = convertPlayer(isSurvivor);
+    setJoiningGameState(true)
+    const rank = convertRankName[rankName] + convertRankNum[rankNum];
+    const playerType = convertPlayer[isSurvivor];
 
     const data = {
       MATCHMAKING_ATTEMPT_START_TIME_UTC: time,
@@ -39,17 +45,17 @@ const PlayButton = () => {
       PARTY_SIZE: partySize,
       SERVER_NAME: server,
       MATCHMAKING_OUTCOME: "success",
-      MMR_GROUP_DECILE: rank
+      MMR_GROUP_DECILE: rank,
     };
 
     console.log(data);
 
-    const modelTypeCode = convertModelType(modelType);
+    const modelTypeCode = convertModelType[modelType];
+
     const urls = {
-      "1": "http://127.0.0.1:5000/predict",
-      "2": "http://127.0.0.1:5000/predict1",
-      "3": "http://127.0.0.1:5000/predict2",
-      // Add more URLs as needed
+      "0": "http://127.0.0.1:5000/predict",
+      "1": "http://127.0.0.1:5000/predict1",
+      "2": "http://127.0.0.1:5000/predict2",
     };
 
     const url = urls[modelTypeCode];
@@ -58,9 +64,9 @@ const PlayButton = () => {
         const response = await fetch(url, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
 
         if (response.ok) {
@@ -78,7 +84,7 @@ const PlayButton = () => {
   return (
     <div>
       <button
-        className={`color-transition-button ${isHovered ? 'hovered' : ''}`}
+        className={`color-transition-button ${isHovered ? "hovered" : ""}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handlePlay}
@@ -87,10 +93,9 @@ const PlayButton = () => {
       </button>
       <button
         className={`color-transition-button  ${isHovered ? "hovered" : ""}`}
-        style={{display:"none"}}
+        style={{ display: "none" }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        
       >
         <span>CANCEL QUEUE</span>
         <span>{estimatedTime}</span>

@@ -5,6 +5,7 @@ import CharacterInput from "./components/CharacterInput";
 import ClassSwitcher from "./components/ClassSwitcher";
 import bloodstain from "./assets/bloodstain.png";
 import "./App.css";
+import SearchingGameScreen from "./components/SearchingGameScreen";
 
 function App() {
   const { displayStain, joiningGameState } = useStore();
@@ -15,11 +16,7 @@ function App() {
         <BackgroundVid />
         <ClassSwitcher />
         <CharacterInput />
-        {/* {joiningGameState ? (
-          < />
-        ) : ( */}
-          <PlayButton className="bottom-center" />
-        {/* )} */}
+        {joiningGameState ? <SearchingGameScreen/> : <PlayButton className="bottom-center" />}
       </div>
       <img
         src={bloodstain}
