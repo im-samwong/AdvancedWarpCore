@@ -153,3 +153,16 @@ body {
   margin: 0px 0px 30px;
   font-weight: bold;
 }
+
+.rankSelect {
+  display: flex;
+  gap: 0px;
+}
+
+.modelTypeSelect {
+  margin: 0px 5px 0px 15px;
+}
+
+.otherInput {
+  margin: 0px 0px 20px;
+}
