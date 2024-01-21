@@ -1,0 +1,1 @@
+Predicted Queue Wait Time: 49.47828857036567 seconds
