@@ -70,6 +70,7 @@ const PlayButton = () => {
     const url = urls[modelTypeCode];
     if (url) {
       try {
+        setEstimatedTime("Calculating...")
         const response = await fetch(url, {
           method: "POST",
           headers: {
