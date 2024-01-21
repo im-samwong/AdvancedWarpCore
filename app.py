@@ -8,51 +8,58 @@ def time_to_seconds(time_str):
     hours, minutes, seconds = map(int, time_str.split(':'))
     return hours * 3600 + minutes * 60 + seconds
 
-# Specify the folder where your model and preprocessors are stored
-model_folder = 'model_output'
-
-# Load the model and preprocessors from the specified folder
-model = load(f'{model_folder}/mlp_regressor_model.joblib')
-scaler = load(f'{model_folder}/scaler.joblib')
-encoders = {col: load(f'{model_folder}/{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
-
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/predict', methods=['POST'])
-def predict():
+# Function to load model and preprocessors for a given folder
+def load_model_and_preprocessors(model_folder):
+    model = load(f'{model_folder}/mlp_regressor_model.joblib')
+    scaler = load(f'{model_folder}/scaler.joblib')
+    encoders = {col: load(f'{model_folder}/{col}_encoder.joblib') for col in ['PLAYER_ROLE', 'SERVER_NAME', 'MATCHMAKING_OUTCOME', 'MATCHMAKING_DAY_OF_WEEK']}
+    return model, scaler, encoders
+
+# Load models and preprocessors for different folders
+models = {}
+models['model_output'], models['scaler'], models['encoders'] = load_model_and_preprocessors('model_output')
+models['model_output_1'], models['scaler_1'], models['encoders_1'] = load_model_and_preprocessors('model_output_1')
+models['model_output_2'], models['scaler_2'], models['encoders_2'] = load_model_and_preprocessors('model_output_2')
+models['model_output_3'], models['scaler_3'], models['encoders_3'] = load_model_and_preprocessors('model_output_3')
+
+# Define a function to process prediction requests
+def process_predict_request(model, scaler, encoders):
     try:
-        # Expecting JSON data with structure: {'PLAYER_ROLE': value, 'PARTY_SIZE': value, ...}
-        # Example:
-        # {
-        #     "PLAYER_ROLE": "Survivor",
-        #     "PARTY_SIZE": 4,
-        #     "SERVER_NAME": "us-west-2",
-        #     "MMR_GROUP_DECILE": 8,
-        #     "MATCHMAKING_OUTCOME": "success",
-        #     "MATCHMAKING_ATTEMPT_START_TIME_UTC": "3:09:31",
-        #     "MATCHMAKING_DAY_OF_WEEK": "Mon"
-        # }
         data = request.json
         data_df = pd.DataFrame(data, index=[0])
 
-        # Label encode and transform data
         for col in encoders:
             if col in data_df.columns:
                 data_df[col] = encoders[col].transform(data_df[col])
 
         data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'].apply(time_to_seconds)
 
-        print(data_df)
-
-        # Ensure the input data matches the feature order expected by the model
         X_scaled = scaler.transform(data_df)
-
-        # Make predictions
         predictions = model.predict(X_scaled)
         return jsonify({'predictions': predictions.tolist()})
     except Exception as e:
         return jsonify({'error': str(e)})
+
+# Define endpoints
+@app.route('/predict', methods=['POST'])
+def predict():
+    return process_predict_request(models['model_output'], models['scaler'], models['encoders'])
+
+@app.route('/predict1', methods=['POST'])
+def predict1():
+    return process_predict_request(models['model_output_1'], models['scaler_1'], models['encoders_1'])
+
+@app.route('/predict2', methods=['POST'])
+def predict2():
+    return process_predict_request(models['model_output_2'], models['scaler_2'], models['encoders_2'])
+
+@app.route('/predict3', methods=['POST'])
+def predict3():
+    return process_predict_request(models['model_output_3'], models['scaler_3'], models['encoders_3'])
+
     
 @app.route('/add', methods=['POST'])
 def add_five():
