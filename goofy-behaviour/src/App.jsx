@@ -13,7 +13,7 @@ function App() {
         <BackgroundVid />
         <ClassSwitcher />
         {/* <SliderComponent /> */}
-        <CharacterInput/>
+        <CharacterInput />
         <PlayButton className="bottom-center" />
       </div>
     </div>

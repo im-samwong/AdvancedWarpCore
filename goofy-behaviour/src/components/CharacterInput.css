@@ -40,7 +40,51 @@
     /* Cursor on hover */
 }
 
+.input-group select {
+    height: 40px;
+    padding: 10px;
+    border-radius: 13px;
+    /* Same height as other inputs */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Transparent black background */
+    border: none;
+    /* Remove border */
+    color: white;
+    /* Optional: change text color for better visibility */
+    /* Optional: for some inner spacing */
+    -webkit-appearance: none;
+    /* Optional: to remove default styling on some browsers */
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.input-group input[type=time] {
+    height: 40px;
+    /* Same height as the select elements */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Transparent black background */
+    border: none;
+    border-radius: 13px;
+    /* Remove border */
+    color: white;
+    /* Optional: change text color for better visibility */
+    padding: 0 10px;
+    /* Optional: for some inner spacing */
+    -webkit-appearance: none;
+    /* Optional: to remove default styling on some browsers */
+    -moz-appearance: none;
+    appearance: none;
+}
+
 .imageContainer {
     width: 20rem;
     height: auto;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 100%;
+    height: 10rem;
 }

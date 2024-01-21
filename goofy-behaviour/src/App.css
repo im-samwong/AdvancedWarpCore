@@ -132,25 +132,26 @@ body {
   z-index: -2;
 }
 
-.charInput{
+.charInput {
   display: flex;
+  flex-direction: row;
 }
 
-.inputCol{
+.inputCol {
   width: 10rem;
   display: flex;
   flex-direction: column;
 }
 
-.inputCol label{
+.inputCol label {
   font-size: 18px;
   font-weight: bold;
   margin: 10px;
 
 }
-.inputCol select{
+
+.inputCol select {
   font-size: 18px;
-  padding: 5px;
   margin: 0px 0px 30px;
   font-weight: bold;
 }
