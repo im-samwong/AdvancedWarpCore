@@ -1,6 +1,6 @@
 import myImage from "../assets/survivor1.png"; // Import the image
 
-const CharacterInput = () => {
+const CharacterInput = (role) => {
   return (
     <div className="charInput">
       <div className="inputCol">
@@ -26,10 +26,10 @@ const CharacterInput = () => {
                 <option>Iridescent</option>
             </select>
             <select id="rankNum" name="rankNum">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
+            <option>I</option>
+            <option>II</option>
+            <option>III</option>
+            <option>IV</option>
             </select>
         </div>
       </div>
