@@ -25,7 +25,6 @@ def predict():
         #     "PLAYER_ROLE": "Survivor",
         #     "PARTY_SIZE": 4,
         #     "SERVER_NAME": "us-west-2",
-        #     "PLATFORM": "ps5",
         #     "MMR_GROUP_DECILE": 8,
         #     "MATCHMAKING_OUTCOME": "success",
         #     "MATCHMAKING_ATTEMPT_START_TIME_UTC": "3:09:31",
@@ -40,19 +39,24 @@ def predict():
                 data_df[col] = encoders[col].transform(data_df[col])
 
         data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'] = data_df['MATCHMAKING_ATTEMPT_START_TIME_UTC'].apply(time_to_seconds)
-        
+
+        print(data_df)
+
         # Ensure the input data matches the feature order expected by the model
-        X_scaled = scaler.transform(data_df[model.feature_names_in_])
+        X_scaled = scaler.transform(data_df)
 
         # Make predictions
         predictions = model.predict(X_scaled)
         return jsonify({'predictions': predictions.tolist()})
     except Exception as e:
         return jsonify({'error': str(e)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+    
+@app.route('/add', methods=['POST'])
+def add_five():
+    data = request.json
+    number = data['number']
+    result = number + 5
+    return jsonify({'result': result})
 
 if __name__ == '__main__':
     app.run(debug=True)
