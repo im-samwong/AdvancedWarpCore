@@ -8,11 +8,11 @@ export const convertRankNum = {
 };
 
 export const convertRankName = {
-  'Ash': 1,
+  'Ash': 2,
   'Bronze': 5,
   'Silver': 9,
   'Gold': 13,
-  'Iridescent': 17
+  'Iridescent': 18
 };
 
 export const convertModelType = {
