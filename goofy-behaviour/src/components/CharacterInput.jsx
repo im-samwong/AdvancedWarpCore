@@ -20,7 +20,7 @@ const CharacterInput = () => {
     const { name, value } = event.target;
     switch (name) {
       case "time":
-        setTime(value);
+        setTime(value+":00");
         break;
       case "day":
         setDay(value);

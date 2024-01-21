@@ -9,10 +9,19 @@ import {
   convertModelType,
 } from "../store";
 
+function convertSecondsToMinutes(seconds) {
+  const fullMinutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.round(seconds % 60);
+
+  // Formatting the output to ensure two digits for seconds
+  const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+
+  return `${fullMinutes}:${formattedSeconds}`;
+}
+
 const PlayButton = () => {
   const [isHovered, setHovered] = useState(false);
-  const { setJoiningGameState } = useStore();
-  const [estimatedTime, setEstimatedTime] = useState(0);
+  const { setJoiningGameState, estimatedTime, setEstimatedTime } = useStore();
 
   const handleMouseEnter = () => {
     setHovered(true);
@@ -71,7 +80,12 @@ const PlayButton = () => {
 
         if (response.ok) {
           const result = await response.json();
+          const timeInMinutes = convertSecondsToMinutes(result.predictions[0]);
+
+          setEstimatedTime(timeInMinutes)
           console.log(result); // Handle the result as needed
+
+
         } else {
           console.error("Error in response", response.status);
         }

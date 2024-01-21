@@ -28,7 +28,7 @@ export const convertPlayer = {
 
 const useStore = create((set) => ({
   // State variables
-  time: "",
+  time: "12:00:00",
   day: "Mon",
   rankName: "Ash",
   rankNum: "I",

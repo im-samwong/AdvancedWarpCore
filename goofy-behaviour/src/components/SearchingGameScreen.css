@@ -8,7 +8,7 @@
     color: white;
     padding: 15px 50px;
     border: none;
-    cursor: pointer;
+    background-color: rgb(0, 0, 0, 0.7);
     border-radius: 3px;
     font-weight: bold;
     font-size: 1rem;
@@ -22,6 +22,10 @@
     /* Smooth transition for the background */
 }
 
-.joining-game-screen h2 {
-    margin: 0;
+.joining-game-screen span {
+    margin: 5px;
+}
+
+.searching-text {
+    font-size: 1.5rem;
 }
