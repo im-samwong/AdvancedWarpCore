@@ -1,13 +1,13 @@
 import { create } from "zustand";
 
-const convertRankNum = {
+export const convertRankNum = {
   'I': 3,
   'II': 2,
   'III': 1,
   'IV': 0,
 };
 
-const convertRankName = {
+export const convertRankName = {
   'Ash': 1,
   'Bronze': 5,
   'Silver': 9,
@@ -15,7 +15,7 @@ const convertRankName = {
   'Iridescent': 17
 };
 
-const convertModelType = {
+export const convertModelType = {
   'More Killers': '',
   'More Survivors': '1',
   'Adapted': '2'
