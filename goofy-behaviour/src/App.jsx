@@ -15,11 +15,11 @@ function App() {
         <BackgroundVid />
         <ClassSwitcher />
         <CharacterInput />
-        {joiningGameState ? (
+        {/* {joiningGameState ? (
           < />
-        ) : (
+        ) : ( */}
           <PlayButton className="bottom-center" />
-        )}
+        {/* )} */}
       </div>
       <img
         src={bloodstain}
