@@ -1,20 +1,45 @@
 .color-transition-button {
   width: 20rem;
   height: 5rem;
-  background-color: #cc0100;
   color: white;
   padding: 15px 50px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.125s ease, filter 0.125s ease;
   border-radius: 0px;
   background-image: url('btnBackground.webp');
+  /* Ensure this path is correct */
   background-size: cover;
-  font-family: Roboto, Arial, Helvetica, sans-serif;
-  text-transform: uppercase;
   font-weight: bold;
+  font-size: 2rem;
+  position: relative;
+  /* Needed for the pseudo-element */
+  overflow: hidden;
+  /* Ensures the pseudo-element doesn't exceed the button's boundaries */
+  transition: background-color 0.125s ease;
+  transition: transform 0.125s ease, background-color 0.125s ease;
+  /* Add transform to the transition */
+  /* Smooth transition for the background */
 }
 
-.color-transition-button.hovered {
-  background-color: #cc0100;
+.color-transition-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  /* Transparent by default */
+  transition: background 0.125s ease;
+  /* Transition for the hover effect */
+}
+
+.color-transition-button:hover::before {
+  background: rgba(0, 0, 0, 0.5);
+  /* Dark overlay on hover */
+}
+
+.color-transition-button:active {
+  transform: scale(0.95);
+  /* Slightly reduce the size when active/pressed */
 }
