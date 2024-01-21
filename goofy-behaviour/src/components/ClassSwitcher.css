@@ -30,7 +30,7 @@
     /* Example color for active state */
 }
 
-span:not(.active):not(.arrow) {
+.class-switcher span:not(.active):not(.arrow) {
     transition: font-size 0.3s ease;
     font-size: 0.9rem;
     /* Example color for active state */

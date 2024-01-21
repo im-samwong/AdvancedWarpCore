@@ -81,10 +81,10 @@ const CharacterInput = () => {
               <option>Iridescent</option>
             </select>
             <select id="rankNum" name="rankNum" onChange={handleInputChange} className="input-field">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
+              <option>I</option>
+              <option>II</option>
+              <option>III</option>
+              <option>IV</option>
             </select>
           </div>
         </div>
@@ -108,7 +108,9 @@ const CharacterInput = () => {
         <div className="input-group">
           <label htmlFor="server">SERVER:</label>
           <select id="server" name="server" onChange={handleInputChange} className="input-field">
+            <option>us-east-1</option>
             <option>us-west-2</option>
+            <option>eu-central-1</option>
           </select>
         </div>
         <div className="input-group">
